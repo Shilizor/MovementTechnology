@@ -1,0 +1,37 @@
+@using Microsoft.AspNetCore.Identity
+@using MovementTechnology.Data
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@model IEnumerable<MovementTechnology.Data.Technic>
+
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
+
+@foreach (MovementTechnology.Data.Technic technic in Model)
+{
+    <tr>
+        <td class="id">@Html.DisplayFor(m => technic.Id)</td>
+        <td class="depart_name">@Html.DisplayFor(m => technic.Id)</td>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            @if (user.privilege >= 1)
+            {
+                <td class="">
+                    <button class="edit_btn" onclick="showInPopup('@Url.Action("AddOrEditDep", "Departaments", new {id=technic.Id}, Context.Request.Scheme)')" )>Изменить</button>
+                </td>
+                <td class="">
+                    <button class="list_btn" onclick="showInPopupHistory('@Url.Action("HistoryView", "Departaments", new {id=technic.Id}, Context.Request.Scheme)')" )>Детали</button>
+                </td>
+                <td class="">
+                    <form asp-action="RemoveDepData" asp-route-id="@technic.Id" onsubmit="return RemoveDepData(this);">
+                        <input type="hidden" asp-for="@technic.Id" />
+                        <input type="submit" value="Удалить" class="delete_btn" />
+                    </form>
+                </td>
+            }
+        }
+            
+    </tr>
+
+}

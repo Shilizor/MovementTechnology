@@ -1,0 +1,45 @@
+@using Microsoft.AspNetCore.Identity
+@using MovementTechnology.Data
+@inject UserManager<User> UserManager
+@model MovementTechnology.Data.Staff
+@{
+var user = await UserManager.GetUserAsync(User);
+Layout = null;
+}
+
+<form class="login_form" asp-action="AddOrEditStaff" asp-route-id="@Model.Id" onsubmit="return AddOrEditStaff(this);">
+    <div asp-validation-summary="ModelOnly"></div>
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="UserId" />
+    <input type="hidden" asp-for="Technics" />
+    <input type="hidden" asp-for="Departament" />
+    <div>
+        <label asp-for="LastName"></label><br/>
+        <input asp-for="LastName" placeholder="Введите Фамилию сотрудника" class="form_inptext"/><br/>
+        <span asp-validation-for="LastName"></span>
+    </div>
+    <div>
+        <label asp-for="FirstName"></label><br/>
+        <input asp-for="FirstName" placeholder="Введите Имя сотрудника" class="form_inptext"/><br/>
+        <span asp-validation-for="FirstName"></span>
+    </div>
+    <div>
+        <label asp-for="MiddleName"></label><br/>
+        <input asp-for="MiddleName" placeholder="Введите Отчество сотрудника" class="form_inptext"/><br/>
+        <span asp-validation-for="MiddleName"></span>
+    </div>
+    <div>
+        <label asp-for="DepartamentID"></label><br/>
+        <select class="droplist" asp-for="DepartamentID" asp-items="@ViewBag.Departaments"></select><br/>
+        <span asp-validation-for="DepartamentID"></span>
+    </div>
+    <div>
+        <label asp-for="CabinetNumber"></label><br/>
+        <input asp-for="CabinetNumber" placeholder="Введите номер кабинета сотрудника" class="form_inptext"/><br/>
+        <span asp-validation-for="CabinetNumber"></span>
+    </div>
+    
+    <div class="login_btn">
+        <input type="submit" value="Submit" class="form_submit_btn"/>
+    </div>
+</form>

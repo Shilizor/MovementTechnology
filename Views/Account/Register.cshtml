@@ -1,0 +1,49 @@
+﻿@model MovementTechnology.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register Page";
+}
+
+<div class="bg">
+    <form class="login_form" method="post" asp-controller="Account" asp-action="Register">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div>
+            <label asp-for="Username"></label><br />
+            <input asp-for="Username", placeholder="Введите имя пользователя", class="form_inptext" />
+            <span asp-validation-for="Username"></span>
+        </div>
+        <div>
+            <label asp-for="LastName"></label><br />
+            <input asp-for="LastName", placeholder="Введите фамилию", class="form_inptext" />
+            <span asp-validation-for="LastName"></span>
+        </div>
+        <div>
+            <label asp-for="FirstName"></label><br />
+            <input asp-for="FirstName", placeholder="Введите имя", class="form_inptext" />
+            <span asp-validation-for="FirstName"></span>
+        </div>
+        <div>
+            <label asp-for="MiddleName"></label><br />
+            <input asp-for="MiddleName", placeholder="Введите отчество", class="form_inptext" />
+            <span asp-validation-for="MiddleName"></span>
+        </div>
+        <div>
+            <label asp-for="Email"></label><br />
+            <input asp-for="Email", placeholder="Введите ваш Email", class="form_inptext" />
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div>
+            <label asp-for="Password"></label><br />
+            <input asp-for="Password", class="form_inptext" />
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div>
+            <label asp-for="PasswordConfirm"></label><br />
+            <input asp-for="PasswordConfirm", class="form_inptext" />
+            <span asp-validation-for="PasswordConfirm"></span>
+        </div>
+        <div class="login_btn">
+            <input type="submit" value="Регистрация", class="form_submit_btn" />
+        </div>
+    </form>
+</div>

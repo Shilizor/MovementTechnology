@@ -1,0 +1,42 @@
+@model MovementTechnology.Data.Departament
+
+@{
+    Layout = null;
+}
+
+<div>
+        <p>Сотрудники в отделе:</p><br/>
+        @if (Model.Staffs.Count > 0)
+        {
+            @foreach (var staff in Model.Staffs)
+            {
+                <div>ФИО: [#@Html.DisplayFor(m => staff.Id)] @Html.DisplayFor(m => staff.LastName) @Html.DisplayFor(m => staff.FirstName[0]).@Html.DisplayFor(m => staff.MiddleName[0]).</div>
+            }
+        }
+        else
+        {
+            <p>Отдел пустой</p>
+        }
+        <br/>
+        
+        <p>Техника в отделе:</p><br/>
+        @if (Model.Technics.Count > 0)
+        {
+            @foreach (var technic in Model.Technics)
+            {
+                <div>Номер техники: @Html.DisplayFor(m => technic.Id)</div>
+                <div>Название: @Html.DisplayFor(m => technic.Name)</div>
+                <div>Модель: @if(string.IsNullOrEmpty(technic.Model)){@Html.DisplayFor(m => technic.Model)}
+                             else
+                             {
+                                 @: отсуствует
+                             }
+                </div>
+            }
+        }
+        else
+        {
+            <p>В отделе отсуствует техника</p>
+        }
+</div>
+

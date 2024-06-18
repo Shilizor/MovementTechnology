@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using MovementTechnology.Data
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@{
+var user = await UserManager.GetUserAsync(User);
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Russo+One&display=swap" rel="stylesheet">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/Modal.css" asp-append-version="true"/>
+</head>
+<body>
+    <header class="header">
+        <div class="logo"><a href="/">Movement Technology</a></div>
+        <nav class="nav">
+            <ul class="nav_items">
+                <li class="@ViewData["nav_item_home"]"><a href="/">Главная</a></li>
+                <li class="@ViewData["nav_item_dep"]"><a href="/departaments">Отделы</a></li>
+                <li class="@ViewData["nav_item_staff"]"><a href="/staffs">Сотрудники</a></li>
+                <li class="@ViewData["nav_item_technic"]"><a href="/technics">Техника</a></li>
+                <li class="@ViewData["nav_item_cartridge"]"><a href="/cartridges">Картриджы</a></li>
+            </ul>
+        </nav>
+        @if (!SignInManager.IsSignedIn(User))
+        {
+            <div class="profile">
+                <a href="/account/login" class="login_btn">Войти</a>
+            </div>
+        }
+        else
+        {
+            <div class="profile">
+                <a href="/account">Пользователь: @user.LastName @Convert.ToString($"{@user.FirstName[0]}").ToUpper().@Convert.ToString($"{@user.MiddleName[0]}").ToUpper()</a>
+                <form method="post" asp-controller="Account" asp-action="Logout">
+                    <input type="submit" value="Выход" class="login_btn" />
+                </form>
+            </div>
+        }
+    </header>
+        <main class="main">
+            @RenderBody()
+        </main>
+<footer class="footer">
+    <p class="dev_text"><a href="https://kszn-prokop.ru/" target="_blank">КСЗН Администрации г. Прокопьевска</a></p>
+    <p class="dev_text"><a href="http://shilizor.ru" target="_blank">Разработчик - Shilizor.ru</a></p>
+</footer>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,41 @@
+@using Microsoft.AspNetCore.Identity
+@using MovementTechnology.Data
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@model IEnumerable<MovementTechnology.Data.Staff>
+
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
+
+@foreach (MovementTechnology.Data.Staff staff in Model)
+{
+    <tr>
+        <td class="id">@Html.DisplayFor(m => staff.Id)</td>
+        <td class="staff_lastname">@Html.DisplayFor(m => staff.LastName)</td>
+        <td class="staff_firstname">@Html.DisplayFor(m => staff.FirstName)</td>
+        <td class="staff_middlename">@Html.DisplayFor(m => staff.MiddleName)</td>
+        <td class="staff_dep_id">@Html.DisplayFor(m => staff.Departament.Name)</td>
+        <td class="staff_cabinetnumber">@Html.DisplayFor(m => staff.CabinetNumber)</td>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            @if (user.privilege >= 1)
+            {
+                <td class="">
+                    <button class="edit_btn" onclick="showInPopup('@Url.Action("AddOrEditStaff", "Staffs", new {id=staff.Id}, Context.Request.Scheme)')" )>Изменить</button>
+                </td>
+                <td class="">
+                    <button class="list_btn" onclick="showInPopupHistory('@Url.Action("HistoryView", "Staffs", new {id=staff.Id}, Context.Request.Scheme)')" )>Детали</button>
+                </td>
+                <td class="">
+                    <form asp-action="RemoveStaffData" asp-route-id="@staff.Id" onsubmit="return RemoveStaffData(this);">
+                        <input type="hidden" asp-for="@staff.Id" />
+                        <input type="submit" value="Удалить" class="delete_btn" />
+                    </form>
+                </td>
+            }
+        }
+            
+    </tr>
+
+}

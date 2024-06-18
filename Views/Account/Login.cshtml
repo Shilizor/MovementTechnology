@@ -1,0 +1,29 @@
+﻿@model MovementTechnology.ViewModels.LoginViewModel
+@{
+ViewData["Title"] = "Login Page";
+}
+
+<div class="bg">
+    <form class="login_form" method="post" asp-controller="Account" asp-action="Login"
+          asp-route-returnUrl="@Model.ReturnUrl">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div>
+            <label asp-for="Username"></label><br />
+            <input asp-for="Username", class="form_inptext", placeholder="Введите имя пользователя" /><br />
+            <span asp-validation-for="Username"></span>
+        </div>
+        <div>
+            <label asp-for="Password"></label><br />
+            <input asp-for="Password", class="form_inptext", placeholder="Введите пароль" /><br />
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div class="login_checkbox">
+            <label asp-for="RememberMe"></label>
+            <input asp-for="RememberMe" />
+        </div>
+        <div class="login_btn">
+            <input type="submit" value="Войти", class="form_submit_btn" />
+        </div>
+        <p>Новый пользователь? <a href="/account/register" style="">Зарегистрироваться!</a></p>
+    </form>
+</div>

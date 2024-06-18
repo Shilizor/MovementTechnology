@@ -1,0 +1,28 @@
+﻿@model MovementTechnology.Data.Staff
+
+@{
+Layout = null;
+}
+
+<div>
+    <p>Техника у сотрудника:</p><br/>
+    @if (Model.Technics.Count > 0)
+    {
+    @foreach (var technic in Model.Technics)
+    {
+    <div>Номер техники: @Html.DisplayFor(m => technic.Id)</div>
+    <div>Название: @Html.DisplayFor(m => technic.Name)</div>
+    <div>Модель: @if(string.IsNullOrEmpty(technic.Model)){@Html.DisplayFor(m => technic.Model)}
+        else
+        {
+        @: отсуствует
+        }
+    </div>
+    }
+    }
+    else
+    {
+    <p>У сотрудника отсуствует техника</p>
+    }
+</div>
+

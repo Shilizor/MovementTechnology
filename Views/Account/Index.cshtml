@@ -1,0 +1,16 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using MovementTechnology.Data
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@{
+var user = await UserManager.GetUserAsync(User);
+}
+
+@{
+    ViewData["Title"] = "Account Page";
+}
+
+<div class="bg">
+    <h2>@user.LastName @user.FirstName @user.MiddleName</h2>
+</div>
